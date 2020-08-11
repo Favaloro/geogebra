@@ -72,8 +72,8 @@ import org.geogebra.common.main.App;
 import org.geogebra.common.main.error.ErrorHelper;
 import org.geogebra.common.plugin.EuclidianStyleConstants;
 import org.geogebra.common.plugin.GeoClass;
+import org.geogebra.common.plugin.JsReference;
 import org.geogebra.common.plugin.ScriptType;
-import org.geogebra.common.plugin.script.JsScript;
 import org.geogebra.common.plugin.script.Script;
 import org.geogebra.common.util.SpreadsheetTraceSettings;
 import org.geogebra.common.util.StringUtil;
@@ -449,11 +449,11 @@ public class ConsElementXMLHandler {
 		try {
 			if ("objectUpdate".equals(attrs.get("type"))) {
 				app.getScriptManager().getUpdateListenerMap().put(geo,
-						JsScript.fromName(app, attrs.get("val")));
+						JsReference.fromName(app, attrs.get("val")));
 			}
 			if ("objectClick".equals(attrs.get("type"))) {
 				app.getScriptManager().getClickListenerMap().put(geo,
-						JsScript.fromName(app, attrs.get("val")));
+						JsReference.fromName(app, attrs.get("val")));
 			}
 			return true;
 		} catch (RuntimeException e) {

@@ -9,8 +9,8 @@ import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.commands.CommandNotLoadedError;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.plugin.Event;
+import org.geogebra.common.plugin.JsReference;
 import org.geogebra.common.plugin.ScriptManager;
-import org.geogebra.common.plugin.script.JsScript;
 import org.geogebra.common.util.ExternalAccess;
 import org.geogebra.common.util.debug.Log;
 
@@ -113,7 +113,7 @@ public class ScriptManagerW extends ScriptManager {
 	}
 
 	@Override
-	protected void callClientListeners(List<JsScript> listeners, Event evt) {
+	protected void callClientListeners(List<JsReference> listeners, Event evt) {
 		if (listeners.isEmpty()) {
 			return;
 		}
@@ -151,7 +151,7 @@ public class ScriptManagerW extends ScriptManager {
 			addToJsObject(args, evt.jsonArgument);
 		}
 
-		for (JsScript listener : listeners) {
+		for (JsReference listener : listeners) {
 			if (listener.getText().charAt(0) <= '9') {
 				JsEval.callNativeJavaScript(this.listeners.get(listener.getText()), args);
 			} else {

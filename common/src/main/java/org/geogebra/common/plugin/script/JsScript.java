@@ -13,7 +13,6 @@ import org.geogebra.common.plugin.ScriptType;
  * @author arno Class for JavaScript scripts
  */
 public class JsScript extends Script {
-	private static HashMap<String, JsScript> nameToScript = new HashMap<>();
 
 	/**
 	 * @param app
@@ -74,21 +73,5 @@ public class JsScript extends Script {
 		return false;
 	}
 
-	/**
-	 * @param app
-	 *            app
-	 * @param string
-	 *            script name
-	 * @return script
-	 */
-	public static JsScript fromName(App app, String string) {
-		if (nameToScript == null) {
-			nameToScript = new HashMap<>();
-		} else if (nameToScript.containsKey(string)) {
-			return nameToScript.get(string);
-		}
-		JsScript script = new JsScript(app, string);
-		nameToScript.put(string, script);
-		return script;
-	}
+
 }

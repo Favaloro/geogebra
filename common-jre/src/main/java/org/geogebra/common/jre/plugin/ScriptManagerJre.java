@@ -7,8 +7,8 @@ import org.geogebra.common.kernel.Kernel;
 import org.geogebra.common.kernel.geos.GeoElement;
 import org.geogebra.common.main.App;
 import org.geogebra.common.plugin.Event;
+import org.geogebra.common.plugin.JsReference;
 import org.geogebra.common.plugin.ScriptManager;
-import org.geogebra.common.plugin.script.JsScript;
 import org.geogebra.common.util.debug.Log;
 
 public abstract class ScriptManagerJre extends ScriptManager {
@@ -34,7 +34,7 @@ public abstract class ScriptManagerJre extends ScriptManager {
     }
 
     @Override
-    protected void callClientListeners(List<JsScript> listeners, Event evt) {
+    protected void callClientListeners(List<JsReference> listeners, Event evt) {
         if (listeners.isEmpty()) {
             return;
         }
@@ -54,7 +54,7 @@ public abstract class ScriptManagerJre extends ScriptManager {
             args.add(evt.argument);
         }
 
-        for (JsScript listener : listeners) {
+        for (JsReference listener : listeners) {
             callListener(listener.getText(), args.toArray(new String[0]));
         }
     }
