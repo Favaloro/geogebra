@@ -73,9 +73,8 @@ public class EvaluatorApiExporter extends ApiExporter {
 	}-*/;
 
 	@Override
-	protected void addListenerFunctions(JavaScriptObject api, GgbAPIW ggbAPI,
-			JavaScriptObject getId) {
-		addClientListener(api, ggbAPI, getId);
+	protected void addListenerFunctions(JavaScriptObject api, GgbAPIW ggbAPI) {
+		addClientListener(api, ggbAPI);
 	}
 
 }

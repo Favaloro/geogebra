@@ -99,22 +99,33 @@ public abstract class ScriptManager implements EventListener {
 
 	private void callListener(JsReference listener, Event evt) {
 		if (listener != null) {
-			String fn = listener.getText();
 			GeoElement geo = evt.target;
 			if (geo == null) {
-				callListener(fn);
+				callListener(listener);
 				return;
 			}
 			String label = geo.getLabel(StringTemplate.defaultTemplate);
 			if (evt.type == EventType.RENAME) {
-				callListener(fn, geo.getOldLabel(), label);
+				callListener(listener, geo.getOldLabel(), label);
 				return;
 			} else if (evt.argument == null) {
-				callListener(fn, label);
+				callListener(listener, label);
 				return;
 			}
-			callListener(fn, evt.argument);
+			callListener(listener, evt.argument);
 		}
+	}
+
+	protected final void callListener(JsReference fn, String... args) {
+		if (fn.getNativeRunnable() != null) {
+			callNativeListener(fn.getNativeRunnable(), args);
+		} else {
+			callListener(fn.getText(), args);
+		}
+	}
+
+	protected void callNativeListener(Object nativeRunnable, String[] args) {
+		// in desktop and web
 	}
 
 	protected void callListener(String fn, String... args) {
@@ -199,7 +210,7 @@ public abstract class ScriptManager implements EventListener {
 
 		// init list
 		if (listenerList != null) {
-			listenerList.add(JsReference.fromNative(app, jsFunctionName));
+			listenerList.add(JsReference.fromNative(jsFunctionName));
 		}
 	}
 
@@ -215,7 +226,7 @@ public abstract class ScriptManager implements EventListener {
 	 */
 	public synchronized void unregisterAddListener(Object JSFunctionName) {
 		if (addListeners != null) {
-			addListeners.remove(JsReference.fromNative(app, JSFunctionName));
+			addListeners.remove(JsReference.fromNative(JSFunctionName));
 			Log.debug("unregisterAddListener: " + JSFunctionName);
 		}
 	}
@@ -237,7 +248,7 @@ public abstract class ScriptManager implements EventListener {
 	 */
 	public synchronized void unregisterRemoveListener(Object JSFunctionName) {
 		if (removeListeners != null) {
-			removeListeners.remove(JsReference.fromNative(app, JSFunctionName));
+			removeListeners.remove(JsReference.fromNative(JSFunctionName));
 			Log.debug("unregisterRemoveListener: " + JSFunctionName);
 		}
 	}
@@ -259,7 +270,7 @@ public abstract class ScriptManager implements EventListener {
 	 */
 	public synchronized void unregisterClearListener(Object JSFunctionName) {
 		if (clearListeners != null) {
-			clearListeners.remove(JsReference.fromNative(app, JSFunctionName));
+			clearListeners.remove(JsReference.fromNative(JSFunctionName));
 			Log.debug("unregisterClearListener: " + JSFunctionName);
 		}
 	}
@@ -281,7 +292,7 @@ public abstract class ScriptManager implements EventListener {
 	 */
 	public synchronized void unregisterRenameListener(Object JSFunctionName) {
 		if (renameListeners != null) {
-			renameListeners.remove(JsReference.fromNative(app, JSFunctionName));
+			renameListeners.remove(JsReference.fromNative(JSFunctionName));
 			Log.debug("unregisterRenameListener: " + JSFunctionName);
 		}
 	}
@@ -303,7 +314,7 @@ public abstract class ScriptManager implements EventListener {
 	 */
 	public synchronized void unregisterUpdateListener(Object JSFunctionName) {
 		if (updateListeners != null) {
-			updateListeners.remove(JsReference.fromNative(app, JSFunctionName));
+			updateListeners.remove(JsReference.fromNative(JSFunctionName));
 		}
 	}
 
@@ -324,7 +335,7 @@ public abstract class ScriptManager implements EventListener {
 	 */
 	public synchronized void unregisterClickListener(Object JSFunctionName) {
 		if (clickListeners != null) {
-			clickListeners.remove(JsReference.fromNative(app, JSFunctionName));
+			clickListeners.remove(JsReference.fromNative(JSFunctionName));
 		}
 	}
 
@@ -344,7 +355,7 @@ public abstract class ScriptManager implements EventListener {
 	 */
 	public synchronized void unregisterClientListener(Object jsFunctionName) {
 		if (clientListeners != null) {
-			clientListeners.remove(JsReference.fromNative(app, jsFunctionName));
+			clientListeners.remove(JsReference.fromNative(jsFunctionName));
 		}
 	}
 
@@ -371,7 +382,7 @@ public abstract class ScriptManager implements EventListener {
 			map = new HashMap<>();
 		}
 		Log.debug(JSFunctionName);
-		map.put(geo, JsReference.fromNative(app, JSFunctionName));
+		map.put(geo, JsReference.fromNative(JSFunctionName));
 		return map;
 	}
 
@@ -396,7 +407,7 @@ public abstract class ScriptManager implements EventListener {
 	 * @param fName
 	 *            the name of the JavaScript function
 	 */
-	public void registerObjectUpdateListener(String objName, String fName) {
+	public void registerObjectUpdateListener(String objName, Object fName) {
 		updateListenerMap = registerObjectListener(updateListenerMap, objName,
 				fName);
 	}
@@ -419,7 +430,7 @@ public abstract class ScriptManager implements EventListener {
 	 * @param fName
 	 *            the name of the JavaScript function
 	 */
-	public void registerObjectClickListener(String objName, String fName) {
+	public void registerObjectClickListener(String objName, Object fName) {
 		clickListenerMap = registerObjectListener(clickListenerMap, objName,
 				fName);
 	}

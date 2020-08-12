@@ -814,14 +814,14 @@ public interface JavaScriptAPI {
 	 * construction, the JavaScript function JSFunctionName is called using the
 	 * name of the newly created object as a single argument.
 	 */
-	public void registerAddListener(String JSFunctionName);
+	public void registerAddListener(Object JSFunctionName);
 
 	/**
 	 * Removes a previously registered add listener
 	 * 
-	 * @see #registerAddListener(String)
+	 * @see #registerAddListener(Object)
 	 */
-	public void unregisterAddListener(String JSFunctionName);
+	public void unregisterAddListener(Object JSFunctionName);
 
 	/**
 	 * Registers a JavaScript function as a remove listener for the applet's
@@ -829,14 +829,14 @@ public interface JavaScriptAPI {
 	 * construction, the JavaScript function JSFunctionName is called using the
 	 * name of the deleted object as a single argument.
 	 */
-	public void registerRemoveListener(String JSFunctionName);
+	public void registerRemoveListener(Object JSFunctionName);
 
 	/**
 	 * Removes a previously registered remove listener
 	 * 
-	 * @see #registerRemoveListener(String)
+	 * @see #registerRemoveListener(Object)
 	 */
-	public void unregisterRemoveListener(String JSFunctionName);
+	public void unregisterRemoveListener(Object JSFunctionName);
 
 	/**
 	 * Registers a JavaScript function as a clear listener for the applet's
@@ -844,14 +844,14 @@ public interface JavaScriptAPI {
 	 * cleared (i.e. all objects are removed), the JavaScript function
 	 * JSFunctionName is called using no arguments.
 	 */
-	public void registerClearListener(String JSFunctionName);
+	public void registerClearListener(Object JSFunctionName);
 
 	/**
 	 * Removes a previously registered clear listener
 	 * 
-	 * @see #registerClearListener(String)
+	 * @see #registerClearListener(Object)
 	 */
-	public void unregisterClearListener(String JSFunctionName);
+	public void unregisterClearListener(Object JSFunctionName);
 
 	/**
 	 * Registers a JavaScript function as a rename listener for the applet's
@@ -859,14 +859,14 @@ public interface JavaScriptAPI {
 	 * construction, the JavaScript function JSFunctionName is called using the
 	 * name of the deleted object as a single argument.
 	 */
-	public void registerRenameListener(String JSFunctionName);
+	public void registerRenameListener(Object JSFunctionName);
 
 	/**
 	 * Removes a previously registered rename listener.
 	 * 
-	 * @see #registerRenameListener(String)
+	 * @see #registerRenameListener(Object)
 	 */
-	public void unregisterRenameListener(String JSFunctionName);
+	public void unregisterRenameListener(Object JSFunctionName);
 
 	/**
 	 * Registers a JavaScript function as an update listener for the applet's
@@ -874,14 +874,14 @@ public interface JavaScriptAPI {
 	 * construction, the JavaScript function JSFunctionName is called using the
 	 * name of the updated object as a single argument.
 	 */
-	public void registerUpdateListener(String JSFunctionName);
+	public void registerUpdateListener(Object JSFunctionName);
 
 	/**
 	 * Removes a previously registered update listener.
 	 * 
-	 * @see #registerRemoveListener(String)
+	 * @see #registerRemoveListener(Object)
 	 */
-	public void unregisterUpdateListener(String JSFunctionName);
+	public void unregisterUpdateListener(Object JSFunctionName);
 
 	/**
 	 * Registers a JavaScript update listener for an object. Whenever the object
@@ -896,7 +896,7 @@ public interface JavaScriptAPI {
 	 * myJavaScriptFunction("A"); whenever object A changes.
 	 */
 	public void registerObjectUpdateListener(String objName,
-			String JSFunctionName);
+			Object JSFunctionName);
 
 	/**
 	 * Removes a previously set change listener for the given object.
@@ -911,16 +911,16 @@ public interface JavaScriptAPI {
 	 * construction, the JavaScript function JSFunctionName is called using the
 	 * name of the updated object as a single argument.
 	 */
-	public void registerClickListener(String JSFunctionName);
+	public void registerClickListener(Object JSFunctionName);
 
 	/**
 	 * Removes a previously registered Click listener.
 	 */
-	public void unregisterClickListener(String JSFunctionName);
+	public void unregisterClickListener(Object JSFunctionName);
 
-	public void registerClientListener(String JSFunctionName);
+	public void registerClientListener(Object JSFunctionName);
 
-	public void unregisterClientListener(String JSFunctionName);
+	public void unregisterClientListener(Object JSFunctionName);
 
 	/**
 	 * Registers a JavaScript Click listener for an object. Whenever the object
@@ -930,7 +930,7 @@ public interface JavaScriptAPI {
 	 * replaced.
 	 */
 	public void registerObjectClickListener(String objName,
-			String JSFunctionName);
+			Object JSFunctionName);
 
 	/**
 	 * Removes a previously set change listener for the given object.
@@ -939,7 +939,7 @@ public interface JavaScriptAPI {
 	 */
 	public void unregisterObjectClickListener(String objName);
 
-	public void registerStoreUndoListener(String objName);
+	public void registerStoreUndoListener(Object jsFunction);
 
 	/**
 	 * Gets the double value of the specified index of the list.

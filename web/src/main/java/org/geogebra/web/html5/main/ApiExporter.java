@@ -12,13 +12,10 @@ public class ApiExporter {
 	 *            exported object
 	 * @param ggbAPI
 	 *            internal API
-	 * @param listenerMappingFunction
-	 *            listener to ID mapping
 	 */
-	protected void addListenerFunctions(JavaScriptObject api, GgbAPIW ggbAPI,
-			JavaScriptObject listenerMappingFunction) {
-		addClientListener(api, ggbAPI, listenerMappingFunction);
-		addSpecificListenerFunctionsNative(api, ggbAPI, listenerMappingFunction);
+	protected void addListenerFunctions(JavaScriptObject api, GgbAPIW ggbAPI) {
+		addClientListener(api, ggbAPI);
+		addSpecificListenerFunctionsNative(api, ggbAPI);
 	}
 
 	/**
@@ -834,13 +831,11 @@ public class ApiExporter {
 	 *            exported object
 	 * @param ggbAPI
 	 *            internal API
-	 * @param getId
-	 *            listener to ID mapping
 	 */
 	protected final native void addClientListener(JavaScriptObject api,
-			GgbAPIW ggbAPI, JavaScriptObject getId) /*-{
+			GgbAPIW ggbAPI) /*-{
 		api.registerClientListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerClientListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerClientListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 	}-*/;
 
@@ -848,67 +843,66 @@ public class ApiExporter {
 	 * Adds client listeners for specific events (add, update, click, ...)
 	 */
 	private native void addSpecificListenerFunctionsNative(JavaScriptObject api,
-			GgbAPIW ggbAPI, JavaScriptObject listenerMappingFunction) /*-{
-		var getId = listenerMappingFunction;
+			GgbAPIW ggbAPI) /*-{
 
 		api.registerAddListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerAddListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerAddListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.registerStoreUndoListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerStoreUndoListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerStoreUndoListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.unregisterAddListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterAddListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterAddListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.registerRemoveListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerRemoveListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerRemoveListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.unregisterRemoveListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterRemoveListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterRemoveListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.registerClearListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerClearListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerClearListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.unregisterClearListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterClearListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterClearListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.registerRenameListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerRenameListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerRenameListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.unregisterRenameListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerRenameListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerRenameListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.registerUpdateListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerUpdateListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerUpdateListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.unregisterUpdateListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterUpdateListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterUpdateListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.unregisterClientListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterClientListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterClientListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.registerObjectUpdateListener = function(objname, JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerObjectUpdateListener(Ljava/lang/String;Ljava/lang/String;)(objname + "", getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerObjectUpdateListener(Ljava/lang/String;Ljava/lang/Object;)(objname + "", JSFunctionName);
 		};
 
-		api.unregisterObjectUpdateListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterObjectUpdateListener(Ljava/lang/String;)(getId(JSFunctionName));
+		api.unregisterObjectUpdateListener = function(objname) {
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterObjectUpdateListener(Ljava/lang/String;)(objname + "");
 		};
 
 		api.registerObjectClickListener = function(objname, JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerObjectClickListener(Ljava/lang/String;Ljava/lang/String;)(objname + "", getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerObjectClickListener(Ljava/lang/String;Ljava/lang/Object;)(objname + "", JSFunctionName);
 		};
 
 		api.unregisterObjectClickListener = function(objname) {
@@ -916,11 +910,11 @@ public class ApiExporter {
 		};
 
 		api.registerClickListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerClickListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::registerClickListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 		api.unregisterClickListener = function(JSFunctionName) {
-			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterClickListener(Ljava/lang/String;)(getId(JSFunctionName));
+			ggbAPI.@org.geogebra.web.html5.main.GgbAPIW::unregisterClickListener(Ljava/lang/Object;)(JSFunctionName);
 		};
 
 	}-*/;

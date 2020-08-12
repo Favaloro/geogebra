@@ -55,7 +55,8 @@ public abstract class ScriptManagerJre extends ScriptManager {
         }
 
         for (JsReference listener : listeners) {
-            callListener(listener.getText(), args.toArray(new String[0]));
+             // TODO this calls clientListener(a,b,c) instead of clientListener([a,b,c])
+             callListener(listener, args.toArray(new String[0]));
         }
     }
 

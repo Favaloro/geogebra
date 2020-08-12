@@ -97,8 +97,8 @@ import org.geogebra.common.plugin.EuclidianStyleConstants;
 import org.geogebra.common.plugin.Event;
 import org.geogebra.common.plugin.EventType;
 import org.geogebra.common.plugin.GeoClass;
+import org.geogebra.common.plugin.JsReference;
 import org.geogebra.common.plugin.ScriptManager;
-import org.geogebra.common.plugin.script.JsScript;
 import org.geogebra.common.plugin.script.Script;
 import org.geogebra.common.util.DoubleUtil;
 import org.geogebra.common.util.ExtendedBoolean;
@@ -4560,9 +4560,9 @@ public abstract class GeoElement extends ConstructionElement
 	}
 
 	private void getListenerTagXML(StringBuilder sb,
-			HashMap<GeoElement, JsScript> map, String type) {
+			HashMap<GeoElement, JsReference> map, String type) {
 		if (map != null) {
-			JsScript objectListener = map.get(this);
+			JsReference objectListener = map.get(this);
 			if (objectListener != null) {
 				sb.append("\t<listener type=\"").append(type).append("\" val=\"");
 				sb.append(objectListener.getText());

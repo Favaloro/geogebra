@@ -449,11 +449,11 @@ public class ConsElementXMLHandler {
 		try {
 			if ("objectUpdate".equals(attrs.get("type"))) {
 				app.getScriptManager().getUpdateListenerMap().put(geo,
-						JsReference.fromName(app, attrs.get("val")));
+						JsReference.fromName(attrs.get("val")));
 			}
 			if ("objectClick".equals(attrs.get("type"))) {
 				app.getScriptManager().getClickListenerMap().put(geo,
-						JsReference.fromName(app, attrs.get("val")));
+						JsReference.fromName(attrs.get("val")));
 			}
 			return true;
 		} catch (RuntimeException e) {

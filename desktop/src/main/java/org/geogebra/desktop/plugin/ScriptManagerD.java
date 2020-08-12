@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.geogebra.common.jre.plugin.ScriptManagerJre;
 import org.geogebra.common.kernel.Construction;
 import org.geogebra.common.main.App;
+import org.mozilla.javascript.NativeFunction;
 import org.mozilla.javascript.Scriptable;
 
 public class ScriptManagerD extends ScriptManagerJre {
@@ -32,10 +33,22 @@ public class ScriptManagerD extends ScriptManagerJre {
 	}
 
 	public void evalJavaScript(App app, String script, String arg) {
+		ensureGlobalScript(app);
+		CallJavaScript.evalScript(app, script, arg);
+	}
+
+	private void ensureGlobalScript(App app) {
 		if (globalScopeMap.get(app.getKernel().getConstruction()) == null) {
 			setGlobalScript();
 		}
+	}
 
-		CallJavaScript.evalScript(app, script, arg);
+	@Override
+	protected void callNativeListener(Object nativeRunnable, String[] args) {
+		ensureGlobalScript(app);
+		if (nativeRunnable instanceof org.mozilla.javascript.NativeFunction) {
+			NativeFunction nativeRunnable1 = (NativeFunction) nativeRunnable;
+			CallJavaScript.evalFunction(nativeRunnable1, args, app);
+		}
 	}
 }

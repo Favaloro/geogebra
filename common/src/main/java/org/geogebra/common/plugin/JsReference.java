@@ -2,7 +2,7 @@ package org.geogebra.common.plugin;
 
 import java.util.HashMap;
 
-import org.geogebra.common.main.App;
+import org.geogebra.common.util.debug.Log;
 
 public class JsReference {
 
@@ -22,7 +22,7 @@ public class JsReference {
 	 *            script name
 	 * @return script
 	 */
-	public static JsReference fromName(App app, String string) {
+	public static JsReference fromName(String string) {
 		if (nameToScript == null) {
 			nameToScript = new HashMap<>();
 		} else if (nameToScript.containsKey(string)) {
@@ -33,21 +33,23 @@ public class JsReference {
 		return script;
 	}
 
-	public static JsReference fromNative(App app, Object nativeRunnable) {
+	public static JsReference fromNative(Object nativeRunnable) {
 		if (nativeRunnable instanceof String) {
-			return fromName(app, (String) nativeRunnable);
+			return fromName((String) nativeRunnable);
 		}
+		Log.error(nameToScript.size()+" exist");
 		for (JsReference ref: nameToScript.values()) {
 			if (ref.getNativeRunnable() == nativeRunnable) {
+				Log.error("match!");
 				return ref;
 			}
 		}
-		JsReference alias = new JsReference((nameToScript.size()+1)+"");
+		JsReference alias = fromName((nameToScript.size()+1)+"");
 		alias.nativeRunnable = nativeRunnable;
 		return alias;
 	}
 
-	private Object getNativeRunnable() {
+	public Object getNativeRunnable() {
 		return nativeRunnable;
 	}
 
